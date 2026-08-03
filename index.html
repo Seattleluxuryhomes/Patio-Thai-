@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Direct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<script src="menu.js"></script>
+<style>
+:root{
+  --bg:#131210; --card:#1C1A16; --border:#2C2922;
+  --yellow:#FFE600; --yellow-deep:#C9B400;
+  --text:#FFF; --muted:#A39E93; --tint:rgba(255,230,0,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Plus Jakarta Sans',sans-serif}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--text);line-height:1.5;padding-bottom:70px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--yellow);outline-offset:2px;border-radius:4px}
+.announce{background:var(--yellow);color:#000;text-align:center;padding:8px 14px;font-size:.8rem;font-weight:800}
+header{position:sticky;top:0;z-index:100;background:rgba(19,18,16,.94);backdrop-filter:blur(10px);
+  border-bottom:2px solid var(--yellow);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-img{height:42px;width:auto;border-radius:6px;border:1px solid var(--yellow)}
+.brand{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;line-height:1.1}
+.brand-sub{font-size:.66rem;color:var(--yellow);text-transform:uppercase;letter-spacing:1.2px;font-weight:800}
+.btn-order{background:var(--yellow);color:#000;border:none;padding:9px 15px;border-radius:30px;
+  font-weight:800;font-size:.78rem;cursor:pointer;text-transform:uppercase;letter-spacing:.3px}
+.btn-order:hover{background:var(--yellow-deep)}
+.hero{max-width:820px;margin:0 auto;padding:38px 18px 26px;text-align:center}
+.hero h1{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15;margin-bottom:12px}
+.hero h1 em{font-style:italic;color:var(--yellow)}
+.hero p{color:var(--muted);font-size:.92rem;max-width:520px;margin:0 auto 18px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.chip{border:1px solid var(--border);background:var(--card);border-radius:20px;padding:6px 13px;
+  font-size:.74rem;font-weight:700;color:#E8E4DB}
+.chip b{color:var(--yellow)}
+.container{max-width:1000px;margin:0 auto;padding:0 16px}
+.section-title{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.featured{display:flex;flex-direction:column;gap:14px;margin-bottom:38px}
+@media(min-width:768px){.featured{display:grid;grid-template-columns:repeat(2,1fr)}}
+.food-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;
+  display:flex;flex-direction:row-reverse;align-items:center;justify-content:space-between;gap:14px;
+  cursor:pointer;transition:border-color .18s;text-align:left;width:100%;color:inherit;font:inherit}
+.food-card:hover{border-color:var(--yellow)}
+.food-img-wrap{width:105px;height:105px;min-width:105px;border-radius:12px;overflow:hidden;
+  background:#0D0C0A;border:1px solid rgba(255,230,0,.22);box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.food-img{width:100%;height:100%;object-fit:cover}
+.food-info{flex:1;display:flex;flex-direction:column;justify-content:center}
+.tag{display:inline-block;align-self:flex-start;background:#000;color:var(--yellow);border:1px solid var(--yellow);
+  font-size:.62rem;font-weight:800;padding:2px 7px;border-radius:4px;text-transform:uppercase;margin-bottom:6px;letter-spacing:.4px}
+.food-name{font-size:1rem;font-weight:800;margin-bottom:3px}
+.food-desc{color:var(--muted);font-size:.79rem;line-height:1.35;margin-bottom:8px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.food-price{font-weight:800;color:var(--yellow);font-size:.95rem}
+.menu-list{display:flex;flex-direction:column;gap:11px;margin-bottom:38px}
+.menu-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 15px;
+  display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;transition:border-color .18s;
+  text-align:left;width:100%;color:inherit;font:inherit}
+.menu-item:hover{border-color:var(--yellow)}
+.mi-name{font-weight:700;font-size:.9rem;margin-bottom:2px}
+.mi-desc{color:var(--muted);font-size:.77rem;line-height:1.35}
+.mi-price{font-weight:800;color:var(--yellow);font-size:.9rem;white-space:nowrap}
+.diet-card{background:linear-gradient(135deg,var(--card) 0%, #232010 100%);border:1px solid var(--yellow);
+  border-radius:14px;padding:20px;margin-bottom:38px}
+.diet-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.diet-title{font-size:1.05rem;font-weight:800;color:var(--yellow)}
+.diet-card p{color:#E4E0D6;font-size:.86rem;line-height:1.55;margin-bottom:8px}
+.diet-card p:last-child{margin-bottom:0}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(5px);z-index:1000;
+  display:none;align-items:center;justify-content:center;padding:16px}
+.overlay.active{display:flex}
+.modal{background:var(--card);border:2px solid var(--yellow);border-radius:16px;width:100%;max-width:460px;
+  padding:20px;position:relative;max-height:90vh;overflow-y:auto}
+.modal-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);
+  font-size:1.5rem;cursor:pointer;line-height:1;padding:4px}
+.modal-title{font-size:1.15rem;font-weight:800;margin-bottom:2px;padding-right:28px}
+.modal-price{color:var(--yellow);font-weight:800;font-size:1rem;margin-bottom:14px}
+.prep{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px}
+.prep-title{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--yellow);margin-bottom:9px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px;border-radius:8px;cursor:pointer;
+  margin-bottom:6px;border:1px solid transparent}
+.opt.selected{border-color:var(--yellow);background:var(--tint)}
+.opt input{margin-top:3px;accent-color:var(--yellow)}
+.opt-label{font-weight:700;font-size:.84rem}
+.opt-sub{font-size:.74rem;color:var(--muted);line-height:1.4}
+.prep-note{font-size:.72rem;color:var(--muted);line-height:1.45;border-top:1px solid var(--border);
+  padding-top:9px;margin-top:4px}
+.notes-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;
+  color:#E8E4DB;margin-bottom:6px;display:block}
+.notes{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:#FFF;
+  padding:10px;font-size:.82rem;margin-bottom:4px;resize:none}
+.notes-hint{font-size:.7rem;color:var(--muted);margin-bottom:14px}
+.btn-add{background:var(--yellow);color:#000;border:none;width:100%;padding:13px;border-radius:25px;
+  font-weight:800;font-size:.95rem;cursor:pointer}
+.btn-add:hover{background:var(--yellow-deep)}
+footer{border-top:1px solid var(--border);margin-top:44px;padding:28px 16px;text-align:center;background:#0D0C0A}
+.f-line{color:var(--muted);font-size:.8rem;margin-bottom:6px}
+.f-url{color:var(--yellow);font-weight:700;text-decoration:none}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--yellow);color:#000;
+  padding:11px 20px;border-radius:8px;font-weight:800;display:none;z-index:2000;font-size:.85rem;white-space:nowrap}
+.toast.active{display:block}
+</style>
+</head>
+<body>
+
+<div class="announce" id="announce"></div>
+
+<header>
+  <a href="#" class="logo-wrap">
+    <img id="logoImg" alt="" class="logo-img">
+    <div>
+      <div class="brand" id="brandName"></div>
+      <div class="brand-sub" id="brandSub"></div>
+    </div>
+  </a>
+  <button class="btn-order" onclick="orderCTA()">Order Direct</button>
+</header>
+
+<section class="hero">
+  <h1 id="heroTitle"></h1>
+  <p id="heroSub"></p>
+  <div class="chips" id="chips"></div>
+</section>
+
+<div class="container">
+  <section id="featured">
+    <h2 class="section-title">Best Sellers</h2>
+    <div class="featured" id="featuredGrid"></div>
+  </section>
+
+  <section>
+    <h2 class="section-title">From the Menu</h2>
+    <div class="menu-list" id="menuList"></div>
+  </section>
+
+  <section class="diet-card">
+    <div class="diet-head">
+      <span style="font-size:1.3rem">🌾</span>
+      <div class="diet-title" id="dietTitle"></div>
+    </div>
+    <div id="dietBody"></div>
+  </section>
+</div>
+
+<div class="overlay" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-price" id="mPrice"></div>
+    <div class="prep">
+      <div class="prep-title">Kitchen Prep</div>
+      <label class="opt selected" id="optStd">
+        <input type="radio" name="prep" checked onclick="pick('optStd')">
+        <span><span class="opt-label">Standard Prep</span><br>
+        <span class="opt-sub">Our house sauces and standard high-heat woks.</span></span>
+      </label>
+      <label class="opt" id="optSauce">
+        <input type="radio" name="prep" onclick="pick('optSauce')">
+        <span><span class="opt-label">Modified Prep — Sauce Substitution</span><br>
+        <span class="opt-sub">Gluten-free tamari in place of soy sauce where the dish allows.</span></span>
+      </label>
+      <label class="opt" id="optEquip">
+        <input type="radio" name="prep" onclick="pick('optEquip')">
+        <span><span class="opt-label">Modified Prep — Separate Equipment Request</span><br>
+        <span class="opt-sub">Asks the kitchen to use cleaned, separate cookware. Flagged on your ticket for the kitchen to confirm.</span></span>
+      </label>
+      <div class="prep-note" id="prepNote"></div>
+    </div>
+    <label class="notes-label" for="allergyNotes">Allergy notes for the kitchen</label>
+    <textarea class="notes" id="allergyNotes" rows="2" placeholder="e.g. peanut allergy — please note on ticket"></textarea>
+    <div class="notes-hint">Printed on your kitchen ticket exactly as written.</div>
+    <button class="btn-add" onclick="addToCart()">Add to Order</button>
+  </div>
+</div>
+
+<footer>
+  <p class="f-line" id="footLine1"></p>
+  <p class="f-line" id="footLine2"></p>
+</footer>
+
+<div class="toast" id="toast">Added to your order</div>
+
+<script>
+// ================= RENDER FROM CONFIG + MENU =================
+const C = CONFIG;
+const live = !!C.squareOrderingUrl;   // demo mode until the Square URL is set
+
+// brand colors from config
+const r = document.documentElement.style;
+r.setProperty('--yellow', C.colors.accent);
+r.setProperty('--yellow-deep', C.colors.accentDeep);
+r.setProperty('--bg', C.colors.bg);
+r.setProperty('--card', C.colors.card);
+r.setProperty('--border', C.colors.border);
+
+// announce bar reacts to the delivery switch
+document.getElementById('announce').textContent = C.deliveryAvailable
+  ? 'Order direct — no marketplace commission. Delivered by our own driver.'
+  : 'Delivery is paused today — pickup orders ready in about 15 minutes. Order direct, commission-free.';
+
+// header + hero
+document.getElementById('logoImg').src = C.logo;
+document.getElementById('logoImg').alt = C.name + ' logo';
+document.getElementById('brandName').textContent = C.name;
+document.getElementById('brandSub').textContent = C.tagline;
+document.title = C.name + ' — Order Direct';
+
+document.getElementById('heroTitle').innerHTML = C.deliveryAvailable
+  ? 'Our kitchen. Our driver.<br><em>Your door.</em>'
+  : 'Our kitchen, 106 feet<br><em>from ready.</em>';
+document.getElementById('heroSub').textContent = C.deliveryAvailable
+  ? `${C.name} delivers its own orders — the same regular driver our neighbors know by name, who calls when he's three minutes out. Order direct and it all stays in the family.`
+  : `Delivery is taking the day off, but the woks aren't. Order direct for pickup — ready fast, no app, no commission.`;
+
+document.getElementById('chips').innerHTML = C.chips
+  .map(ch => `<span class="chip"><b>${ch.bold}</b>${ch.text}</span>`).join('');
+
+// menu
+const featured = MENU.filter(m => m.featured);
+const rest = MENU.filter(m => !m.featured);
+
+document.getElementById('featuredGrid').innerHTML = featured.map((m,i) => `
+  <button class="food-card" onclick="openItem(${MENU.indexOf(m)})">
+    <span class="food-img-wrap"><img src="${m.image}" alt="${m.name}" class="food-img"></span>
+    <span class="food-info">
+      ${m.tag ? `<span class="tag">${m.tag}</span>` : ''}
+      <span class="food-name">${m.name}</span>
+      <span class="food-desc">${m.desc}</span>
+      <span class="food-price">${m.price}</span>
+    </span>
+  </button>`).join('');
+
+document.getElementById('menuList').innerHTML = rest.map(m => `
+  <button class="menu-item" onclick="openItem(${MENU.indexOf(m)})">
+    <span><span class="mi-name">${m.name}</span>
+    <span class="mi-desc">${m.desc}</span></span>
+    <span class="mi-price">${m.price}</span>
+  </button>`).join('');
+
+// dietary card
+document.getElementById('dietTitle').textContent = C.dietary.title;
+document.getElementById('dietBody').innerHTML = C.dietary.paragraphs.map(p => `<p>${p}</p>`).join('');
+document.getElementById('prepNote').textContent =
+  `${C.name} is not a dedicated gluten-free facility. Your selection and notes print on the kitchen ticket with this order.`;
+
+// footer
+document.getElementById('footLine1').textContent = `${C.name} ${C.tagline} · ${C.address} · ${C.phone}`;
+document.getElementById('footLine2').innerHTML =
+  `Order direct at <a href="https://${C.domain}" class="f-url">${C.domain}</a>` +
+  (C.deliveryAvailable ? ' — delivered by our own driver.' : ' — pickup today.');
+
+// ================= ORDER FLOW =================
+// LIVE:  every order action hands off to the Square ordering page.
+// DEMO:  the modal shows the prep options + allergy notes concept.
+const modal = document.getElementById('orderModal');
+let cart = 0;
+
+function orderCTA(){
+  if (live) { window.location.href = C.squareOrderingUrl; }
+  else { document.getElementById('featured').scrollIntoView({behavior:'smooth'}); }
+}
+function openItem(idx){
+  if (live) { window.location.href = C.squareOrderingUrl; return; }
+  const m = MENU[idx];
+  document.getElementById('mTitle').textContent = m.name;
+  document.getElementById('mPrice').textContent = m.price;
+  modal.classList.add('active');
+}
+function closeModal(){ modal.classList.remove('active'); }
+function pick(id){
+  ['optStd','optSauce','optEquip'].forEach(x => document.getElementById(x).classList.remove('selected'));
+  document.getElementById(id).classList.add('selected');
+}
+function addToCart(){
+  cart++;
+  closeModal();
+  const t = document.getElementById('toast');
+  t.classList.add('active');
+  setTimeout(()=>t.classList.remove('active'), 2000);
+}
+modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
