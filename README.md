@@ -43,11 +43,18 @@ pickup-only messaging automatically. Set `true` when he's back.
 No server, no Railway, no secrets. Nothing in this repo is sensitive —
 the Square URL is public by definition (customers visit it).
 
+## On a phone (home screen)
+
+`manifest.webmanifest`, `sw.js`, `offline.html` and `images/icon-*.png`, `images/apple-touch-icon.png` make the site installable (Android
+Chrome: Install app; iPhone Safari: Share, Add to Home Screen). The worker keeps no menu, price or photo: every page and file is the
+network, and with no signal it shows `offline.html`. The icons are made from `images/logo.jpg` (a 220-pixel file, so they are soft:
+replace `logo.jpg` with a larger one and make the icons again). `node scripts/pwa-check.mjs` checks all of it.
+
 ## Restaurant #2
 
 1. Copy this repo (or click "Use this template" after marking it a
    template repo on GitHub).
-2. Replace `config.js`, `menu.js`, and the `/images` folder.
+2. Replace `config.js`, `menu.js`, the `/images` folder, and the name and colours in `manifest.webmanifest` and `offline.html`.
 3. Deploy. Done.
 
 ## Before launch checklist
